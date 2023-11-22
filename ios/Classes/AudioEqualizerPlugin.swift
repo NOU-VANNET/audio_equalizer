@@ -3,7 +3,7 @@ import UIKit
 
 public class AudioEqualizerPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "audio_equalizer", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "nouvannet.com/flutter-packages/audio_equalizer", binaryMessenger: registrar.messenger())
     let instance = AudioEqualizerPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

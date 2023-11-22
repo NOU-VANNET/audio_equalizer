@@ -7,33 +7,95 @@ class Equalizer {
   Equalizer(this._channel);
 
   Future<void> setEnabled(bool isEnabled) async {
-    await _channel.invokeMethod('setEQEnabled', isEnabled);
+    try {
+      await _channel.invokeMethod('setEQEnabled', isEnabled);
+    } catch(_) {
+      return;
+    }
   }
 
-  Future<bool> getEnabled() async => await _channel.invokeMethod("getEQEnabled");
+  Future<bool> getEnabled() async {
+    try {
+      return await _channel.invokeMethod("getEQEnabled");
+    } catch(_) {
+      return false;
+    }
+  }
 
-  Future<List<int>> getBandLevelRange() async => (await _channel.invokeMethod('getEQBandLevelRange')).cast<int>();
+  Future<List<int>> getBandLevelRange() async {
+    try {
+      return (await _channel.invokeMethod('getEQBandLevelRange')).cast<int>();
+    } catch(_) {
+      return [];
+    }
+  }
 
-  Future<int> getBandLevel(int bandId) async => await _channel.invokeMethod('getEQBandLevel', bandId);
+  Future<int> getBandLevel(int bandId) async {
+    try {
+      return await _channel.invokeMethod('getEQBandLevel', bandId);
+    } catch(_) {
+      return 0;
+    }
+  }
 
   Future<void> setBandLevel(int bandId, int level) async {
-    await _channel.invokeMethod(
-      'setEQBandLevel',
-      {'bandId': bandId, 'level': level * 100},
-    );
+    try {
+      await _channel.invokeMethod(
+        'setEQBandLevel',
+        {'bandId': bandId, 'level': level * 100},
+      );
+    } catch(_) {
+      return;
+    }
   }
 
-  Future<List<int>> getCenterBandFreq() async => (await _channel.invokeMethod('getEQCenterBandFreq')).cast<int>();
+  Future<List<int>> getCenterBandFreq() async {
+    try {
+      return (await _channel.invokeMethod('getEQCenterBandFreq')).cast<int>();
+    } catch(_) {
+      return [];
+    }
+  }
 
-  Future<List<String>> getPresetNames() async => (await _channel.invokeMethod('getEQPresetNames')).cast<String>();
+  Future<List<String>> getPresetNames() async {
+    try {
+      return (await _channel.invokeMethod('getEQPresetNames')).cast<String>();
+    } catch(_) {
+      return [];
+    }
+  }
 
-  Future<void> setPreset(String preset) async => await _channel.invokeMethod('setEQPreset', preset);
+  Future<void> setPreset(String preset) async {
+    try {
+      await _channel.invokeMethod('setEQPreset', preset);
+    } catch(_) {
+      return;
+    }
+  }
 
   ///Return true if the device is supported.
-  Future<bool> openDeviceEqualizerSettings([ContentType type = ContentType.music]) async => await _channel.invokeMethod("openDeviceEQ", type.index);
+  Future<bool> openDeviceEqualizerSettings([ContentType type = ContentType.music]) async {
+    try  {
+      return await _channel.invokeMethod("openDeviceEQ", type.index);
+    } catch(_) {
+      return false;
+    }
+  }
 
-  Future<bool> getDeviceEqualizerSettingsSupported([ContentType type = ContentType.music]) async => await _channel.invokeMethod("getDeviceEQSupported", type.index);
+  Future<bool> getDeviceEqualizerSettingsSupported([ContentType type = ContentType.music]) async {
+    try {
+      return await _channel.invokeMethod("getDeviceEQSupported", type.index);
+    } catch(_) {
+      return false;
+    }
+  }
 
-  void release() => _channel.invokeMethod("releaseEQ");
+  void release() {
+    try {
+      _channel.invokeMethod("releaseEQ");
+    } catch(_) {
+      return;
+    }
+  }
 
 }

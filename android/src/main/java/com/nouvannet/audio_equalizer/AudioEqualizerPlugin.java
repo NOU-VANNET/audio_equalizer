@@ -30,7 +30,7 @@ public class AudioEqualizerPlugin implements FlutterPlugin, MethodCallHandler, A
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "audio_equalizer");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "nouvannet.com/flutter-packages/audio_equalizer");
     channel.setMethodCallHandler(this);
     this.applicationContext = flutterPluginBinding.getApplicationContext();
   }
